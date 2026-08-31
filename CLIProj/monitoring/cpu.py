@@ -43,7 +43,7 @@ import psutil
 #     return psutil.cpu_freq()
 
 ## updated function returns values as a library
-def get_metrics(intervalAmount):
+def get_cpu_metrics(intervalAmount):
     return {
         "usage": psutil.cpu_percent(interval=intervalAmount),
         "per_core": psutil.cpu_percent(interval=intervalAmount, percpu=True),
