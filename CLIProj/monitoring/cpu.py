@@ -29,15 +29,25 @@ import psutil
 
 ## Functions
 
-# Returns cpu usage based on interval amount (seconds)
-def cpu_usage(intervalAmount):
-    return psutil.cpu_percent(interval=intervalAmount)
-# Returns cpu usage per cpu core based on interval amount
-def cpu_usage_pcore(intervalAmount):
-    return psutil.cpu_percent(interval=intervalAmount, percpu=True)
-# Returns cpu count (can be logi and phys or just phys)
-def cpu_cores(logicalTF):
-    return psutil.cpu_count(logical=logicalTF)
-# Returns cpu freq stats
-def cpu_freq():
-    return psutil.cpu_freq()
+# # Returns cpu usage based on interval amount (seconds)
+# def cpu_usage(intervalAmount):
+#     return psutil.cpu_percent(interval=intervalAmount)
+# # Returns cpu usage per cpu core based on interval amount
+# def cpu_usage_pcore(intervalAmount):
+#     return psutil.cpu_percent(interval=intervalAmount, percpu=True)
+# # Returns cpu count (can be logi and phys or just phys)
+# def cpu_cores(logicalTF):
+#     return psutil.cpu_count(logical=logicalTF)
+# # Returns cpu freq stats
+# def cpu_freq():
+#     return psutil.cpu_freq()
+
+## updated function returns values as a library
+def get_metrics(intervalAmount):
+    return {
+        "usage": psutil.cpu_percent(interval=intervalAmount),
+        "per_core": psutil.cpu_percent(interval=intervalAmount, percpu=True),
+        "physical": psutil.cpu_count(logical=False),
+        "logical": psutil.cpu_count(logical=True),
+        "freq": psutil.cpu_freq()
+    }

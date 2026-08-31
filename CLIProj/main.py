@@ -7,12 +7,14 @@
 
 #####################################################
 
-from monitoring.cpu import *
+from monitoring.cpu import get_metrics
 
-print(f"CPU Usage: {cpu_usage(1)}%")
-print(f"CPU Cores: {cpu_cores(False)}")
-core_usage = cpu_usage_pcore(1)
-for i in range (cpu_cores(False)):
+
+cpu_metrics = get_metrics(1)
+print(f"CPU Usage: {cpu_metrics["usage"]}%")
+print(f"CPU Cores: {cpu_metrics["physical"]}")
+core_usage = cpu_metrics["per_core"]
+for i in range (cpu_metrics["physical"]):
     print (f"Core {i+1}: {core_usage[i]}")
-print(f"Logical CPUs: {cpu_cores(True)}")
-print(f"Frequency: {cpu_freq()}")
+print(f"Logical CPUs: {cpu_metrics["logical"]}")
+print(f"Frequency: {cpu_metrics["freq"].current}")
